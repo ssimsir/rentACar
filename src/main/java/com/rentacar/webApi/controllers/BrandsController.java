@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.rentacar.business.abstracts.BrandService;
 import com.rentacar.entities.concretes.Brand;
 
-@RestController
+@RestController   //RestController
 @RequestMapping("api/brands")
 public class BrandsController {
 	private BrandService brandService;
@@ -17,6 +17,7 @@ public class BrandsController {
 	public BrandsController(BrandService brandService) {
 		this.brandService = brandService;
 	}
+	
 	
 	@GetMapping("/getall")
 	public List<Brand> getAll(){
