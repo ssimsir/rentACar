@@ -6,5 +6,4 @@ import com.rentacar.entities.concretes.Brand;
 
 public interface BrandService {
 	List<Brand> getAll();
-	//
 }
