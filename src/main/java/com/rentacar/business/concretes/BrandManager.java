@@ -1,11 +1,14 @@
 package com.rentacar.business.concretes;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.rentacar.business.abstracts.BrandService;
+import com.rentacar.business.requests.CreateBrandRequest;
+import com.rentacar.business.responses.GetAllBrandsResponses;
 import com.rentacar.dataAccess.abstracts.BrandRepository;
 import com.rentacar.entities.concretes.Brand;
 
@@ -21,9 +24,33 @@ public class BrandManager implements BrandService {
 
 
 	@Override
-	public List<Brand> getAll() {
-		// Buraya iş kuralları yazılacak
-		return brandRepository.getAll();
+	public List<GetAllBrandsResponses> getAll() {
+		
+		List<Brand> brands = brandRepository.findAll();
+		
+		List<GetAllBrandsResponses> getAllBrandsResponses = new ArrayList<GetAllBrandsResponses>();
+		
+		for (Brand brand : brands) {
+			GetAllBrandsResponses responseItem = new GetAllBrandsResponses();
+			responseItem.setId(brand.getId());
+			responseItem.setName(brand.getName());
+			getAllBrandsResponses.add(responseItem);
+		}
+		
+		
+		return getAllBrandsResponses;
+	}
+
+
+	@Override
+	public void add(CreateBrandRequest createBrandRequest) {
+		
+		Brand brand=new Brand();
+		
+		brand.setName(createBrandRequest.getName());
+		
+		this.brandRepository.save(brand);
+		
 	}
 	
 }

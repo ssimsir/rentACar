@@ -1,12 +1,10 @@
 package com.rentacar.dataAccess.abstracts;
 
-import java.util.List;
-
-import org.springframework.stereotype.Repository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.rentacar.entities.concretes.Brand;
 
 
-public interface BrandRepository {
-	List<Brand> getAll();
+public interface BrandRepository extends JpaRepository<Brand, Integer> {
+	
 }
