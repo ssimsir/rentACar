@@ -33,8 +33,8 @@ public class Model {
 	
 	@ManyToOne
 	@JoinColumn(name="brand_id")
-	Brand brand;
+	private Brand brand;
 	
 	@OneToMany(mappedBy = "model")
-	List<Car> cars;
+	private List<Car> cars;
 }

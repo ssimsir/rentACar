@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import com.rentacar.business.abstracts.BrandService;
 import com.rentacar.business.requests.CreateBrandRequest;
 import com.rentacar.business.requests.UpdateBrandRequest;
-import com.rentacar.business.responses.GetAllBrandsResponses;
+import com.rentacar.business.responses.GetAllBrandsResponse;
 import com.rentacar.business.responses.GetByIdBrandResponse;
 import com.rentacar.core.utilities.mappers.ModelMapperService;
 import com.rentacar.dataAccess.abstracts.BrandRepository;
@@ -27,7 +27,7 @@ public class BrandManager implements BrandService {
 
 
 	@Override
-	public List<GetAllBrandsResponses> getAll() {
+	public List<GetAllBrandsResponse> getAll() {
 		
 		List<Brand> brands = brandRepository.findAll();
 		
@@ -41,8 +41,8 @@ public class BrandManager implements BrandService {
 		 * getAllBrandsResponses.add(responseItem); }
 		 */
 		
-		List<GetAllBrandsResponses> getAllBrandsResponses = brands.stream().map(brand->this.modelMapperService.forResponse()
-				.map(brand, GetAllBrandsResponses.class)).collect(Collectors.toList());
+		List<GetAllBrandsResponse> getAllBrandsResponses = brands.stream().map(brand->this.modelMapperService.forResponse()
+				.map(brand, GetAllBrandsResponse.class)).collect(Collectors.toList());
 		
 		return getAllBrandsResponses;
 	}

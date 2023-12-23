@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.rentacar.business.abstracts.BrandService;
 import com.rentacar.business.requests.CreateBrandRequest;
 import com.rentacar.business.requests.UpdateBrandRequest;
-import com.rentacar.business.responses.GetAllBrandsResponses;
+import com.rentacar.business.responses.GetAllBrandsResponse;
 import com.rentacar.business.responses.GetByIdBrandResponse;
 
 @RestController   //RestController
@@ -30,7 +30,7 @@ public class BrandsController {
 	
 	
 	@GetMapping()
-	public List<GetAllBrandsResponses> getAll(){
+	public List<GetAllBrandsResponse> getAll(){
 		return brandService.getAll();
 	}
 	

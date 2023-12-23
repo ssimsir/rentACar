@@ -27,7 +27,7 @@ public class Car {
 	@Column(name="id")
 	private int id;
 
-	@Column(name = "plate")
+	@Column(name = "plate", unique = true)
 	private String plate;
 	
 	@Column(name = "dailyPrice")
