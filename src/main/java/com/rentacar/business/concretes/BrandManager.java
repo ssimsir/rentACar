@@ -10,6 +10,7 @@ import com.rentacar.business.requests.CreateBrandRequest;
 import com.rentacar.business.requests.UpdateBrandRequest;
 import com.rentacar.business.responses.GetAllBrandsResponse;
 import com.rentacar.business.responses.GetByIdBrandResponse;
+import com.rentacar.business.rules.BrandBusinessRules;
 import com.rentacar.core.utilities.mappers.ModelMapperService;
 import com.rentacar.dataAccess.abstracts.BrandRepository;
 import com.rentacar.entities.concretes.Brand;
@@ -22,7 +23,7 @@ public class BrandManager implements BrandService {
 	
 	private BrandRepository brandRepository;
 	private ModelMapperService modelMapperService;
-	
+	private BrandBusinessRules brandBusinessRules;
 
 
 
@@ -54,6 +55,7 @@ public class BrandManager implements BrandService {
 		//Brand brand=new Brand();
 		//brand.setName(createBrandRequest.getName()); Herbir alan için tek tek yapmak yerine model mapper tek seferde yapıyor
 		
+		this.brandBusinessRules.checkIfBrandNameExists(createBrandRequest.getName());
 		Brand brand = this.modelMapperService.forRequest().map(createBrandRequest, Brand.class);
 		this.brandRepository.save(brand);
 		
