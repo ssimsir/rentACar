@@ -2,25 +2,28 @@ package com.rentacar.business.concretes;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.rentacar.business.abstracts.BrandService;
 import com.rentacar.business.requests.CreateBrandRequest;
 import com.rentacar.business.responses.GetAllBrandsResponses;
+import com.rentacar.core.utilities.mappers.ModelMapperService;
 import com.rentacar.dataAccess.abstracts.BrandRepository;
 import com.rentacar.entities.concretes.Brand;
 
+import lombok.AllArgsConstructor;
+
 @Service
+@AllArgsConstructor
 public class BrandManager implements BrandService {
 	
 	private BrandRepository brandRepository;
+	private ModelMapperService modelMapperService;
 	
-	@Autowired
-	public BrandManager(BrandRepository brandRepository) {
-		this.brandRepository = brandRepository;
-	}
+
 
 
 	@Override
@@ -28,15 +31,18 @@ public class BrandManager implements BrandService {
 		
 		List<Brand> brands = brandRepository.findAll();
 		
-		List<GetAllBrandsResponses> getAllBrandsResponses = new ArrayList<GetAllBrandsResponses>();
+		/*
+		 * List<GetAllBrandsResponses> getAllBrandsResponses = new
+		 * ArrayList<GetAllBrandsResponses>();
+		 * 
+		 * for (Brand brand : brands) { GetAllBrandsResponses responseItem = new
+		 * GetAllBrandsResponses(); responseItem.setId(brand.getId());
+		 * responseItem.setName(brand.getName());
+		 * getAllBrandsResponses.add(responseItem); }
+		 */
 		
-		for (Brand brand : brands) {
-			GetAllBrandsResponses responseItem = new GetAllBrandsResponses();
-			responseItem.setId(brand.getId());
-			responseItem.setName(brand.getName());
-			getAllBrandsResponses.add(responseItem);
-		}
-		
+		List<GetAllBrandsResponses> getAllBrandsResponses = brands.stream().map(brand->this.modelMapperService.forResponse()
+				.map(brand, GetAllBrandsResponses.class)).collect(Collectors.toList());
 		
 		return getAllBrandsResponses;
 	}
@@ -45,10 +51,10 @@ public class BrandManager implements BrandService {
 	@Override
 	public void add(CreateBrandRequest createBrandRequest) {
 		
-		Brand brand=new Brand();
+		//Brand brand=new Brand();
+		//brand.setName(createBrandRequest.getName()); Herbir alan için tek tek yapmak yerine model mapper tek seferde yapıyor
 		
-		brand.setName(createBrandRequest.getName());
-		
+		Brand brand = this.modelMapperService.forRequest().map(createBrandRequest, Brand.class);
 		this.brandRepository.save(brand);
 		
 	}
