@@ -9,32 +9,37 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Table(name="models")
+@Table(name="cars")
 @Entity
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Model {
+public class Car {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="id")
 	private int id;
+
+	@Column(name = "plate")
+	private String plate;
 	
-	@Column(name="name")
-	private String name;
+	@Column(name = "dailyPrice")
+	private double dailyPrice;
+	
+	@Column(name = "modelYear")
+	private int modelYear;
+	
+	@Column(name = "state")
+	private int state; //1-Available 2-Rented 3-Maintenance
 	
 	@ManyToOne
-	@JoinColumn(name="brand_id")
-	Brand brand;
-	
-	@OneToMany(mappedBy = "model")
-	List<Car> cars;
+	@JoinColumn(name="model_id")
+	private Model model;
 }
