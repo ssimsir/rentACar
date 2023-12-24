@@ -7,9 +7,12 @@ import org.springframework.stereotype.Service;
 
 import com.rentacar.business.abstracts.ModelService;
 import com.rentacar.business.requests.CreateModelRequest;
+import com.rentacar.business.requests.UpdateBrandRequest;
+import com.rentacar.business.requests.UpdateModelRequest;
 import com.rentacar.business.responses.GetAllModelsResponse;
 import com.rentacar.core.utilities.mappers.ModelMapperService;
 import com.rentacar.dataAccess.abstracts.ModelRepository;
+import com.rentacar.entities.concretes.Brand;
 import com.rentacar.entities.concretes.Model;
 
 import lombok.AllArgsConstructor;
@@ -38,7 +41,19 @@ public class ModelManager implements ModelService {
 		this.modelRepository.save(model);
 		
 	}
-	
+
+	@Override
+	public void delete(int id) {
+		this.modelRepository.deleteById(id);
+		
+	}
+
+	@Override
+	public void update(UpdateModelRequest updateModelRequest) {
+		Model model = this.modelMapperService.forRequest().map(updateModelRequest, Model.class);
+		this.modelRepository.save(model);
+		
+	}
 
 
 }
