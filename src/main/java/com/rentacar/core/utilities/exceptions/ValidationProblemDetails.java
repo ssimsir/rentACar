@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ValidationProblemDetails extends ProblemDetails {
+	
 	private Map<String, String> validationErrors;
 
 }
