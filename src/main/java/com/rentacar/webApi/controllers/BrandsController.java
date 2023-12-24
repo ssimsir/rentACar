@@ -19,6 +19,7 @@ import com.rentacar.business.requests.UpdateBrandRequest;
 import com.rentacar.business.responses.GetAllBrandsResponse;
 import com.rentacar.business.responses.GetByIdBrandResponse;
 
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 
 @RestController   //RestController
@@ -38,12 +39,12 @@ public class BrandsController {
 	}
 	@PostMapping()
 	@ResponseStatus(code=HttpStatus.CREATED)
-	public void add(@RequestBody  CreateBrandRequest createBrandRequest) {
+	public void add(@RequestBody() @Valid() CreateBrandRequest createBrandRequest) {
 		this.brandService.add(createBrandRequest);
 	}
 	
 	@PutMapping()
-	public void update(@RequestBody UpdateBrandRequest updateBrandRequest) {
+	public void update(@RequestBody() @Valid() UpdateBrandRequest updateBrandRequest) {
 		this.brandService.update(updateBrandRequest);
 	}
 	

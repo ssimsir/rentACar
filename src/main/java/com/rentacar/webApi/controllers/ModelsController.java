@@ -15,10 +15,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.rentacar.business.abstracts.ModelService;
 import com.rentacar.business.requests.CreateModelRequest;
-import com.rentacar.business.requests.UpdateBrandRequest;
 import com.rentacar.business.requests.UpdateModelRequest;
 import com.rentacar.business.responses.GetAllModelsResponse;
 
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 
 @RestController   //RestController
@@ -35,12 +35,12 @@ public class ModelsController {
 	
 	@PostMapping()
 	@ResponseStatus(code=HttpStatus.CREATED)
-	public void add(@RequestBody  CreateModelRequest createModelRequest) {
+	public void add(@RequestBody() @Valid() CreateModelRequest createModelRequest) {
 		this.modelService.add(createModelRequest);
 	}
 	
 	@PutMapping()
-	public void update(@RequestBody UpdateModelRequest updateModelRequest) {
+	public void update(@RequestBody() @Valid() UpdateModelRequest updateModelRequest) {
 		this.modelService.update(updateModelRequest);
 	}
 	
