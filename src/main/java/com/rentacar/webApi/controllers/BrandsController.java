@@ -19,15 +19,13 @@ import com.rentacar.business.requests.UpdateBrandRequest;
 import com.rentacar.business.responses.GetAllBrandsResponse;
 import com.rentacar.business.responses.GetByIdBrandResponse;
 
+import lombok.AllArgsConstructor;
+
 @RestController   //RestController
 @RequestMapping("api/brands")
+@AllArgsConstructor
 public class BrandsController {
 	private BrandService brandService;
-
-	public BrandsController(BrandService brandService) {
-		this.brandService = brandService;
-	}
-	
 	
 	@GetMapping()
 	public List<GetAllBrandsResponse> getAll(){
